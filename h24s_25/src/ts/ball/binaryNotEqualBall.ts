@@ -13,7 +13,7 @@ export class BinaryNotEqualBall extends FunctionBall<(x: number) => number> {
                     }
                 }
             }
-            , "!==", []
+            , "!=", []
         )
         this.initialPosition = position;
         this.initialVelocity = velocity;
