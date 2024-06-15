@@ -1,10 +1,22 @@
 <script setup lang="ts">
+import {game} from "@/main";
+
+function edit() {
+  game.edit();
+}
+function play() {
+  game.play()
+}
 </script>
 
 <template>
   <div class="container">
     <div class="title">
       <h1>welcome</h1>
+    </div>
+    <div>
+      <button @click="edit()">edit</button>
+      <button @click="play()">play</button>
     </div>
     <div class="gamespace" id="screen">
     </div>
