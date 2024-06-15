@@ -1,42 +1,36 @@
 import { BallTypeEnum } from './balltypes'; 
 // ball interface
-export interface BallInterface {
-    label: () => string;
-    initialVelocity: { x: number, y: number };
-    initialPosition: { x: number, y: number };
-    ballType: () => BallTypeEnum;
+export abstract class BallInterface {
+    abstract label(): string;
+    abstract initialVelocity: { x: number, y: number };
+    abstract initialPosition: { x: number, y: number };
+    abstract ballType(): BallTypeEnum;
 }
 
 // interface for each balltype
-export interface NumberBallInterface extends BallInterface {
-    constructor: (value: number) => void;
-    value: () => number;
-    ballType: () => BallTypeEnum.NUMBER;
+export abstract class NumberBallInterface extends BallInterface {
+    abstract value(): number;
+    override ballType() {return BallTypeEnum.NUMBER}
 }
 
-export interface FunctionBallInterface<T> extends BallInterface {
-    constructor: (func: (x: number) => T, symbol: string, applied: number[]) => void;
-    func: () => (x: number) => T;
-    ballType: () => BallTypeEnum.FUNCTION;
+export abstract class FunctionBallInterface<T> extends BallInterface {
+    abstract func(): (x: number) => T;
+    override ballType(): BallTypeEnum {
+        return BallTypeEnum.FUNCTION;
+    }
 }
 
-export interface HigherOrderFunctionBallInterface<T1, T2> extends BallInterface {
-    constructor: (func: (f: (x: number) => T1) => T2, symbol: string) => void;
-    func: () => (f: (x: number) => T1) => T2;
-    ballType: () => BallTypeEnum.HIGHER_ORDER_FUNCTION;
+export abstract class HigherOrderFunctionBallInterface<T1, T2> extends BallInterface {
+    abstract func(): (f: (x: number) => T1) => T2;
+    override ballType() {
+        return BallTypeEnum.HIGHER_ORDER_FUNCTION;
+    }
 }
 
-export interface InputBallInterface extends BallInterface {
-    constructor: (argId: number) => void;
-    argId: () => number;
-    setValue: (value: number) => void;
-    convertToNumberBall: () => NumberBallInterface;
-    ballType: () => BallTypeEnum.INPUT;
-}
-
-export interface OutputBallInterface extends BallInterface {
-    constructor: (outputStreamId: number) => void;
-    outputStreamId: () => number;
-    outputValue: () => number;
-    ballType: () => BallTypeEnum.OUTPUT;
+export abstract class OutputBallInterface extends BallInterface {
+    abstract outputStreamId(): number;
+    abstract outputValue(): number;
+    override ballType() {
+        return BallTypeEnum.OUTPUT;
+    }
 }
