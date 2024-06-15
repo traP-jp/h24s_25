@@ -20,6 +20,17 @@
       <div class="checkbox-container">
         <input class="ckeckbox" type="checkbox" id="checkbox1" /> <label for="checkbox1">チェックボックス1</label>
       </div>
+      <div class="checkbox-container">
+        <input class="ckeckbox" type="checkbox" id="checkbox2" /> <label for="checkbox2">チェックボックス2</label>
+      </div>
+      <div class="start-stop-container">
+        <button id="start-button">Start</button>
+        <button id="stop-button">Stop</button>
+      </div>
+      <div class="save-load-container">
+        <button id="save-button">Save</button>
+        <button id="load-button">Load</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,20 +40,24 @@
  float: left;
 }
 
-
-.title {
-  background-color: aqua;
-  width: 66%;
-
-}
-
 .container {
   height: 80vh;
   width: 100%;
 }
 
+.title {
+  width: 60%;
+  margin-left: 20px;
+  border: 2px solid black;
+}
+
+h1 {
+  margin-left: 5%;
+  font-size: 35px;
+}
+
 .gamespace {
-  height: 70vh;
+  height: 80vh;
   margin: 20px;
   width: 60%;
   border:2px solid #000;
@@ -56,7 +71,16 @@
 }
 
 .slider-container {
-  
+  padding: 3%;
+}
+
+.checkbox-container{
+  padding: 3%;
+}
+
+button {
+  padding: 6% 10%;
+  margin: 5%;
 }
 
 .slider {
