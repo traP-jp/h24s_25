@@ -1,7 +1,6 @@
 import {NumberBallInterface} from './ballInterface';
-import { BallTypeEnum } from './balltypes';
 
-class NumberBall extends NumberBallInterface {
+export class NumberBall extends NumberBallInterface {
     numberValue: number;
    constructor (value : number){
         super();

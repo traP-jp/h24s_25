@@ -1,5 +1,4 @@
 import './assets/main.css'
-import Matter, {Events, Mouse, MouseConstraint, Vector} from 'matter-js'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -29,5 +28,5 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app)
 
 //画面の初期化
-export const game = new Screen(true);
+export const game = Screen.getInstance(false)
 game.init();

@@ -1,4 +1,5 @@
-export  enum BallTypeEnum {
+
+export enum BallTypeEnum {
     OUTPUT,
     INPUT,
     NUMBER,

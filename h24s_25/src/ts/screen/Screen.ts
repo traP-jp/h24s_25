@@ -3,7 +3,13 @@ import {ScreenMode} from "@/ts/screen/ScreenMode";
 import ScreenData from "@/ts/data/ScreenData";
 import {BallTypeEnum} from "@/ts/balltypes";
 import BallData from "@/ts/data/BallData";
-import type {BallInterface} from "@/ts/ballInterface";
+import {
+    type BallInterface,
+    FunctionBallInterface,
+    HigherOrderFunctionBallInterface,
+    NumberBallInterface,
+    OutputBallInterface
+} from "@/ts/ballInterface";
 
 /**
  * スクリーン
@@ -24,7 +30,20 @@ export default class Screen {
      * value: {@link BallInterface}
      */
     objects: Map<string,BallInterface> = new Map();
-    constructor(hasGravity: boolean) {
+    /**
+     * 入力
+     */
+    input: number[] = []
+
+    static instance: Screen;
+    static getInstance(hasGravity: boolean = true) {
+        if(this.instance === undefined) {
+            this.instance = new Screen(hasGravity);
+        }
+        return this.instance
+    }
+
+    private constructor(hasGravity: boolean) {
         this.hasGravity = hasGravity;
         // create an engine
         this.engine = Engine.create();
@@ -40,9 +59,21 @@ export default class Screen {
 
         //a
         this.data.balls.set("a",new BallData(
+            BallTypeEnum.FUNCTION,
+            {x: 200, y: 200},
+            {x: 2, y: 0},
+            new Map()
+        ));
+        this.data.balls.set("b",new BallData(
+            BallTypeEnum.NUMBER,
+            {x: 300, y: 200},
+            {x: 0, y: 0},
+            new Map()
+        ));
+        this.data.balls.set("c",new BallData(
             BallTypeEnum.NUMBER,
             {x: 400, y: 200},
-            {x: 1, y: 0},
+            {x: 0, y: 0},
             new Map()
         ));
     }
@@ -77,10 +108,14 @@ export default class Screen {
                 context.textBaseline = 'middle'
                 context.textAlign = 'center'
                 context.fillStyle = 'white'
-                context.font = '60 px Arial'
+                context.font = '48px serif'
                 const bodies = Matter.Composite.allBodies(this.engine.world)
                 for (const body of bodies) {
-                    context.fillText(body.label, body.position.x, body.position.y)
+                    if (body.label === undefined) continue;
+                    const id = body.label
+                    const ball = this.objects.get(id)
+                    if(ball === undefined) continue;
+                    context.fillText(ball.label(), body.position.x, body.position.y)
                 }
                 context.lineWidth = 1.5
                 context.strokeStyle = '#ffffff'
@@ -99,6 +134,12 @@ export default class Screen {
             //画面初期化
             this.edit()
         })
+        Events.on(this.engine, "collisionStart", (event) => {
+            for(const pair of event.pairs) {
+                if(pair.bodyA.label === undefined || pair.bodyB.label === undefined) continue;
+                this.collide(pair.bodyA.label, pair.bodyB.label)
+            }
+        })
     }
 
     /**
@@ -108,14 +149,19 @@ export default class Screen {
         //重力
         this.engine.gravity.y = 0;
 
+        //objectsの初期化
+        this.objects = new Map();
+
         //オブジェクト配置
         Composite.remove(this.engine.world, this.engine.world.bodies);
-        const ground = Matter.Bodies.rectangle(400, 610, 810, 60, {isStatic: true});
+        const ground = Matter.Bodies.rectangle(400, 610, 810, 10, {isStatic: true});
         Composite.add(this.engine.world, ground);
         for(const entry of this.data.balls.entries()) {
             const id = entry[0];
             const ballData = entry[1];
-            const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {});
+            const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
+                restitution: 1.0
+            });
             body.label = id;
             Composite.add(this.engine.world, body);
         }
@@ -132,7 +178,7 @@ export default class Screen {
 
         //dataからオブジェクト生成
         Composite.remove(this.engine.world, this.engine.world.bodies);
-        const ground = Matter.Bodies.rectangle(400, 610, 810, 60, {isStatic: true});
+        const ground = Matter.Bodies.rectangle(400, 610, 810, 10, {isStatic: true});
         Composite.add(this.engine.world, ground);
         for(const entry of this.data.balls.entries()) {
             const id = entry[0];
@@ -142,11 +188,56 @@ export default class Screen {
 
             const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
                 positionPrev: {x: ballData.initialPosition.x-ballData.initialVelocity.x, y: ballData.initialPosition.y-ballData.initialVelocity.y},
+                restitution: 1.0
             });
             body.label = id;
             Composite.add(this.engine.world, body);
         }
 
         this.screenMode = ScreenMode.PLAY;
+    }
+
+     setBall(id: string, ball: BallInterface|null) {
+        if(ball === null) {
+            this.objects.delete(id);
+            Composite.remove(this.engine.world, this.engine.world.bodies.filter(body => body.label === id));
+        } else {
+            this.objects.set(id, ball);
+        }
+    }
+
+    collide(idA: string, idB: string) {
+        const ballA = this.objects.get(idA);
+        const ballB = this.objects.get(idB);
+        if(ballA === undefined || ballB === undefined) return;
+        if(ballA instanceof NumberBallInterface) {
+            if(ballB instanceof FunctionBallInterface) {
+                const pair = ballB.func(ballA)
+                this.setBall(idA, pair.other);
+                this.setBall(idB, pair.self);
+            } else if(ballB instanceof OutputBallInterface) {
+                //TODO output
+            }
+        } else if(ballA instanceof FunctionBallInterface) {
+            if(ballB instanceof NumberBallInterface) {
+                const pair = ballA.func(ballB)
+                this.setBall(idA, pair.self);
+                this.setBall(idB, pair.other);
+            } else if(ballB instanceof HigherOrderFunctionBallInterface) {
+                const pair = ballB.func(ballA)
+                this.setBall(idA, pair.other);
+                this.setBall(idB, pair.self);
+            }
+        } else if(ballA instanceof HigherOrderFunctionBallInterface) {
+            if(ballB instanceof FunctionBallInterface) {
+                const pair = ballA.func(ballB)
+                this.setBall(idA, pair.self);
+                this.setBall(idB, pair.other);
+            }
+        } else if(ballA instanceof OutputBallInterface) {
+            if(ballB instanceof NumberBallInterface) {
+                //TODO output
+            }
+        }
     }
 }

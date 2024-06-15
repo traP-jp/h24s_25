@@ -1,20 +1,19 @@
 import{BallTypeEnum} from './balltypes';
-import type {FunctionBallInterface} from './ballInterface';
+import {BallInterface, FunctionBallInterface, NumberBallInterface} from './ballInterface';
 
-export class FunctionBall<T> implements FunctionBallInterface<T>{
+export class FunctionBall<S extends BallInterface|null, O extends BallInterface|null> extends FunctionBallInterface<S,O>{
       symbol: string;
       applied: number[];
-      initialVelocity: { x: number, y: number } = {x: 0, y: 0};
-      initialPosition: { x: number, y: number } = {x: 0, y: 0};
-      private funcVal: (x: number) => T;
+      private readonly funcVal: (x: NumberBallInterface) => { self: S, other: O };
 
-      constructor(func: (x: number) => T, symbol: string, applied: number[]) {
+      constructor(func: (x: NumberBallInterface) => {self: S, other: O}, symbol: string, applied: number[]) {
+            super();
             this.funcVal = func;
             this.symbol = symbol;
             this.applied = applied;
-      } 
-      func(): (x: number) => T {
-            return  this.funcVal;
+      }
+      override func(x: NumberBallInterface): { self: S, other: O } {
+            return this.funcVal(x);
       }
       ballType(): BallTypeEnum {
             return BallTypeEnum.FUNCTION
