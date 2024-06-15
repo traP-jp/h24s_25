@@ -6,6 +6,13 @@ import {FunctionType} from "@/ts/ball/function/FunctionType";
 import {BinaryMinusBall} from "@/ts/ball/function/binaryMinusBall";
 import {BinaryMultiplyBall} from "@/ts/ball/function/binaryMultiplyBall";
 import Screen from "@/ts/screen/Screen";
+import {OutputBallImpl} from "@/ts/ball/OutputBallImpl";
+import {BinaryEqualBall} from "@/ts/ball/function/binaryEqualBall";
+import {BinaryNotEqualBall} from "@/ts/ball/function/binaryNotEqualBall";
+import {BinaryGreaterThanBall} from "@/ts/ball/function/binaryGreaterThanBall";
+import {BinaryGreaterThanOrEqualBall} from "@/ts/ball/function/binaryGreaterThanOrEqualBall";
+import {BinaryLessThanBall} from "@/ts/ball/function/binaryLessThanBall";
+import {BinaryLessThanOrEqualBall} from "@/ts/ball/function/binaryLessThanOrequalBall";
 
 /**
  * 玉の情報のみを表すクラス
@@ -39,10 +46,12 @@ export default class BallData {
      */
     createBall(): BallInterface {
         switch (this.ballType) {
-            case BallTypeEnum.OUTPUT:
-                return new MockBallImpl();
+            case BallTypeEnum.OUTPUT: {
+                const outputIndex = this.data.has("index") ? Number(this.data.get("index")) : 0;
+                return new OutputBallImpl(outputIndex);
+            }
             case BallTypeEnum.INPUT: {
-                const input = this.data.has("input") ? Screen.getInstance().input[Number(this.data.get("input"))] : 0;
+                const input = this.data.has("index") ? Screen.getInstance().input[Number(this.data.get("input"))] : 0;
                 return new NumberBall(input)
             }
             case BallTypeEnum.NUMBER: {
@@ -60,6 +69,18 @@ export default class BallData {
                         return new BinaryMultiplyBall(removeSelf);
                     case FunctionType.BINARY_DIVISION:
                         return new BinaryMultiplyBall(removeSelf);
+                    case FunctionType.BINARY_EQUAL:
+                        return new BinaryEqualBall(removeSelf);
+                    case FunctionType.BINARY_NOT_EQUAL:
+                        return new BinaryNotEqualBall(removeSelf);
+                    case FunctionType.BINARY_GREATER_THAN:
+                        return new BinaryGreaterThanBall(removeSelf);
+                    case FunctionType.BINARY_GREATER_THAN_OR_EQUAL:
+                        return new BinaryGreaterThanOrEqualBall(removeSelf);
+                    case FunctionType.BINARY_LESS_THAN:
+                        return new BinaryLessThanBall(removeSelf);
+                    case FunctionType.BINARY_LESS_THAN_OR_EQUAL:
+                        return new BinaryLessThanOrEqualBall(removeSelf);
                     default:
                         return new MockBallImpl()
                 }
