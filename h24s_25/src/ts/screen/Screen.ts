@@ -3,7 +3,13 @@ import {ScreenMode} from "@/ts/screen/ScreenMode";
 import ScreenData from "@/ts/data/ScreenData";
 import {BallTypeEnum} from "@/ts/balltypes";
 import BallData from "@/ts/data/BallData";
-import type {BallInterface} from "@/ts/ballInterface";
+import {
+    type BallInterface,
+    FunctionBallInterface,
+    HigherOrderFunctionBallInterface,
+    NumberBallInterface,
+    OutputBallInterface
+} from "@/ts/ballInterface";
 
 /**
  * スクリーン
@@ -148,5 +154,40 @@ export default class Screen {
         }
 
         this.screenMode = ScreenMode.PLAY;
+    }
+
+    collide(idA: string, idB: string) {
+        const ballA = this.objects.get(idA);
+        const ballB = this.objects.get(idB);
+        if(ballA === undefined || ballB === undefined) return;
+        if(ballA instanceof NumberBallInterface) {
+            if(ballB instanceof FunctionBallInterface) {
+                const pair = ballB.func(ballA)
+                this.objects.set(idA,pair.other);
+                this.objects.set(idB,pair.self);
+            } else if(ballB instanceof OutputBallInterface) {
+                //TODO output
+            }
+        } else if(ballA instanceof FunctionBallInterface) {
+            if(ballB instanceof NumberBallInterface) {
+                const pair = ballA.func(ballB)
+                this.objects.set(idA,pair.self);
+                this.objects.set(idB,pair.other);
+            } else if(ballB instanceof HigherOrderFunctionBallInterface) {
+                const pair = ballB.func(ballA)
+                this.objects.set(idA,pair.other);
+                this.objects.set(idB,pair.self);
+            }
+        } else if(ballA instanceof HigherOrderFunctionBallInterface) {
+            if(ballB instanceof FunctionBallInterface) {
+                const pair = ballA.func(ballB)
+                this.objects.set(idA,pair.self);
+                this.objects.set(idB,pair.other);
+            }
+        } else if(ballA instanceof OutputBallInterface) {
+            if(ballB instanceof NumberBallInterface) {
+                //TODO output
+            }
+        }
     }
 }
