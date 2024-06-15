@@ -78,14 +78,10 @@ export abstract class HigherOrderFunctionBallInterface<
  */
 export abstract class OutputBallInterface extends BallInterface {
     /**
-     * 出力のストリームID
+     * 出力のindex
      */
-    abstract outputStreamId(): number;
+    abstract outputIndex: number;
 
-    /**
-     * 出力の値
-     */
-    abstract outputValue(): number;
 
     /**
      * BallTypeEnumを返す

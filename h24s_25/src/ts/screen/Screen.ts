@@ -159,7 +159,9 @@ export default class Screen {
         for(const entry of this.data.balls.entries()) {
             const id = entry[0];
             const ballData = entry[1];
-            const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {});
+            const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
+                restitution: 1.0
+            });
             body.label = id;
             Composite.add(this.engine.world, body);
         }
@@ -186,6 +188,7 @@ export default class Screen {
 
             const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
                 positionPrev: {x: ballData.initialPosition.x-ballData.initialVelocity.x, y: ballData.initialPosition.y-ballData.initialVelocity.y},
+                restitution: 1.0
             });
             body.label = id;
             Composite.add(this.engine.world, body);
