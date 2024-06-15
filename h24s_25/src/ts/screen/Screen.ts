@@ -1,8 +1,8 @@
 import Matter, {Bodies, Composite, Engine, Events, Mouse, MouseConstraint, Render, Runner} from "matter-js";
 import {ScreenMode} from "@/ts/screen/ScreenMode";
-import ScreenData from "@/ts/screen/GameData";
+import ScreenData from "@/ts/data/GameData";
 import {BallTypeEnum} from "@/ts/balltypes";
-import BallData from "@/ts/screen/BallData";
+import BallData from "@/ts/data/BallData";
 import type {BallInterface} from "@/ts/ballInterface";
 
 export default class Screen {
@@ -32,7 +32,7 @@ export default class Screen {
             BallTypeEnum.NUMBER,
             {x: 400, y: 200},
             {x: 1, y: 0},
-            {}
+            new Map()
         ));
     }
     init() {
@@ -73,6 +73,7 @@ export default class Screen {
             }
         )
         Events.on(mouseConstraint, "mousemove", (event) =>{
+            if(event.source.body === null) return;
             if(this.screenMode === ScreenMode.EDIT) {
                 const mousePosition = event.mouse.position;
                 const ballData = this.data.balls.get(event.source.body.label)
