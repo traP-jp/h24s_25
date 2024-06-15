@@ -22,12 +22,6 @@ function load() {
     <div class="title left">
       <h1>welcome</h1>
     </div>
-    <div>
-      <button @click="edit()">edit</button>
-      <button @click="play()">play</button>
-      <button @click="save()">testにsave</button>
-      <button @click="load()">testからload</button>
-    </div>
     <div class="gamespace" id="screen">
     </div>
     <div class="control-panel left">
@@ -45,13 +39,13 @@ function load() {
       <div class="checkbox-container">
         <input class="ckeckbox" type="checkbox" id="checkbox2" /> <label for="checkbox2">チェックボックス2</label>
       </div>
-      <div class="start-stop-container">
-        <button id="start-button">Start</button>
-        <button id="stop-button">Stop</button>
+      <div class="play-edit-container">
+        <button id="play-button" @click="play()">Play</button>
+        <button id="edit-button" @click="edit()">Edit</button>
       </div>
       <div class="save-load-container">
-        <button id="save-button">Save</button>
-        <button id="load-button">Load</button>
+        <button id="save-button" @click="save()">Save</button>
+        <button id="load-button" @click="load()">Load</button>
       </div>
     </div>
   </div>
