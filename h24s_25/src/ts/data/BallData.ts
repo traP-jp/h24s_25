@@ -1,5 +1,7 @@
 import {BallTypeEnum} from "@/ts/balltypes";
 import {type BallInterface} from "@/ts/ballInterface";
+import {NumberBall} from "@/ts/numberball";
+import {BinaryPlusBall} from "@/ts/ball/binaryPlus";
 
 /**
  * 玉の情報のみを表すクラス
@@ -32,7 +34,14 @@ export default class BallData {
      * {@link BallInterface}のインスタンスを生成
      */
     createBall(): BallInterface {
-        return new MockBallImpl(this.initialPosition,this.initialVelocity);
+        switch (this.ballType) {
+            case BallTypeEnum.NUMBER:
+                return new NumberBall(1)
+            case BallTypeEnum.FUNCTION:
+                return new BinaryPlusBall(true)
+            default:
+                return new MockBallImpl(this.initialPosition,this.initialVelocity);
+        }
     }
 
     /**

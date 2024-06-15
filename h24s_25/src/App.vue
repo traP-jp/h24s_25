@@ -11,7 +11,7 @@ function save() {
   game.data.save("test")
 }
 function load() {
-  game.data.load("test").then((data) => {
+  game.data.load("test").then(() => {
     game.edit()
   })
 }
@@ -25,6 +25,14 @@ function load() {
     <div class="gamespace" id="screen">
     </div>
     <div class="control-panel left">
+      <div class="play-edit-container">
+        <button id="play-button" @click="play()">Play</button>
+        <button id="edit-button" @click="edit()">Edit</button>
+      </div>
+      <div class="save-load-container">
+        <button id="save-button" @click="save()">Save</button>
+        <button id="load-button" @click="load()">Load</button>
+      </div>
       <div class="slider-container">
         <p>スライダ1</p>
         <input class="slider" type="range" id="slider1" min="0" max="100" step="5">
@@ -38,14 +46,6 @@ function load() {
       </div>
       <div class="checkbox-container">
         <input class="ckeckbox" type="checkbox" id="checkbox2" /> <label for="checkbox2">チェックボックス2</label>
-      </div>
-      <div class="play-edit-container">
-        <button id="play-button" @click="play()">Play</button>
-        <button id="edit-button" @click="edit()">Edit</button>
-      </div>
-      <div class="save-load-container">
-        <button id="save-button" @click="save()">Save</button>
-        <button id="load-button" @click="load()">Load</button>
       </div>
     </div>
   </div>
