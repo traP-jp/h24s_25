@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import {game} from "@/main";
+
+function edit() {
+  game.edit();
+}
+function play() {
+  game.play()
+}
 </script>
 
 <template>
@@ -6,7 +14,11 @@
     <div class="title left">
       <h1>welcome</h1>
     </div>
-    <div class="gamespace left" id="screen">
+    <div>
+      <button @click="edit()">edit</button>
+      <button @click="play()">play</button>
+    </div>
+    <div class="gamespace" id="screen">
     </div>
     <div class="control-panel left">
       <div class="slider-container">
