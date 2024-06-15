@@ -28,5 +28,5 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app)
 
 //画面の初期化
-export const game = new Screen(false);
+export const game = Screen.getInstance(false)
 game.init();

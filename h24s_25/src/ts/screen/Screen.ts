@@ -30,7 +30,20 @@ export default class Screen {
      * value: {@link BallInterface}
      */
     objects: Map<string,BallInterface> = new Map();
-    constructor(hasGravity: boolean) {
+    /**
+     * 入力
+     */
+    input: number[] = []
+
+    static instance: Screen;
+    static getInstance(hasGravity: boolean = true) {
+        if(this.instance === undefined) {
+            this.instance = new Screen(hasGravity);
+        }
+        return this.instance
+    }
+
+    private constructor(hasGravity: boolean) {
         this.hasGravity = hasGravity;
         // create an engine
         this.engine = Engine.create();
