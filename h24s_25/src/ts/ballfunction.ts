@@ -1,6 +1,6 @@
 import{BallTypeEnum} from './balltypes';
 import type {FunctionBallInterface} from './ballInterface';
-class BallFunction<T> implements FunctionBallInterface<T>{
+export class BallFunction<T> implements FunctionBallInterface<T>{
       symbol: string;
       applied: number[];
       initialVelocity: { x: number, y: number } = {x: 0, y: 0};
