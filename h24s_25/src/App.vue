@@ -1,47 +1,54 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="container">
+    <div class="title">
+      <h1>welcome</h1>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <div class="gamespace" id="screen">
+    </div>
+    <div class="control-panel">
+      <div class="slider"></div>
+      <div class="tggle"></div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+h1 {
+  
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.title {
+  background-color: aqua;
 }
+
+.container {
+  height: auto;
+}
+
+.gamespace {
+  display: flex;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  background-color: red;
+}
+
+.control-panel {
+  flex: 1;
+  border: 1px solid #000;
+  margin-right: 20px;
+  display: flex;
+  background-color: antiquewhite;
+}
+
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .greetings h1,
+  .greetings h3 {
+    text-align: left;
   }
 }
 </style>
