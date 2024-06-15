@@ -2,8 +2,8 @@ import { BallTypeEnum } from './balltypes';
 // ball interface
 export interface BallInterface {
     label: () => string;
-    velocity: () => { x: number, y: number };
-    position: () => { x: number, y: number };
+    velocity: { x: number, y: number };
+    position: { x: number, y: number };
     ballType: () => BallTypeEnum;
     id: () => number;
 }
