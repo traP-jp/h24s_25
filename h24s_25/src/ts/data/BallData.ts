@@ -5,6 +5,7 @@ import {BinaryPlusBall} from "@/ts/ball/function/binaryPlus";
 import {FunctionType} from "@/ts/ball/function/FunctionType";
 import {BinaryMinusBall} from "@/ts/ball/function/binaryMinusBall";
 import {BinaryMultiplyBall} from "@/ts/ball/function/binaryMultiplyBall";
+import {TernaryConditionalBall} from "@/ts/ball/function/ternaryConditional";
 import Screen from "@/ts/screen/Screen";
 
 /**
@@ -60,6 +61,8 @@ export default class BallData {
                         return new BinaryMultiplyBall(removeSelf);
                     case FunctionType.BINARY_DIVISION:
                         return new BinaryMultiplyBall(removeSelf);
+                    case FunctionType.TERNARY_CONDITIONAL:
+                        return new TernaryConditionalBall(removeSelf);
                     default:
                         return new MockBallImpl()
                 }
