@@ -15,7 +15,7 @@ export interface NumberBallInterface extends BallInterface {
 }
 
 export interface FunctionBallInterface<T> extends BallInterface {
-    constructor: (func: (x: number) => T) => void;
+    constructor: (func: (x: number) => T, symbol: string, applied: number[]) => void;
     func: () => (x: number) => T;
     ballType: () => BallTypeEnum.FUNCTION;
 }
