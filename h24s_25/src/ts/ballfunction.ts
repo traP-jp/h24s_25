@@ -19,13 +19,12 @@ export class FunctionBall<S extends BallInterface|null, O extends BallInterface|
             return BallTypeEnum.FUNCTION
       }
       label(): string{
-            let label: string = "";
+            let label: string = this.symbol;
             this.applied.forEach(
                   function (value) {
-                        label += `${value.toString} `
+                        label += ` ${value.toString}`
                   }
             )
-            label += this.symbol
             return label
       }
 }
