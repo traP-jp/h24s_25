@@ -19,7 +19,7 @@ function load() {
 
 <template>
   <div class="container">
-    <div class="title">
+    <div class="title left">
       <h1>welcome</h1>
     </div>
     <div>
@@ -30,47 +30,85 @@ function load() {
     </div>
     <div class="gamespace" id="screen">
     </div>
-    <div class="control-panel">
-      <div class="slider"></div>
-      <div class="tggle"></div>
+    <div class="control-panel left">
+      <div class="slider-container">
+        <p>スライダ1</p>
+        <input class="slider" type="range" id="slider1" min="0" max="100" step="5">
+      </div>
+      <div class="slider-container">
+        <p>スライダ2</p>
+        <input class="slider" type="range" id="slider2" min="0" max="100" step="5">
+      </div>
+      <div class="checkbox-container">
+        <input class="ckeckbox" type="checkbox" id="checkbox1" /> <label for="checkbox1">チェックボックス1</label>
+      </div>
+      <div class="checkbox-container">
+        <input class="ckeckbox" type="checkbox" id="checkbox2" /> <label for="checkbox2">チェックボックス2</label>
+      </div>
+      <div class="start-stop-container">
+        <button id="start-button">Start</button>
+        <button id="stop-button">Stop</button>
+      </div>
+      <div class="save-load-container">
+        <button id="save-button">Save</button>
+        <button id="load-button">Load</button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-h1 {
-  
-}
-
-.title {
-  background-color: aqua;
+.left {
+ float: left;
 }
 
 .container {
-  height: auto;
+  height: 80vh;
+  width: 100%;
+}
+
+.title {
+  width: 60%;
+  margin-left: 20px;
+  border: 2px solid black;
+}
+
+h1 {
+  margin-left: 5%;
+  font-size: 35px;
 }
 
 .gamespace {
-  display: flex;
-  height: 100vh;
-  padding: 20px;
-  display: flex;
-  background-color: red;
+  height: 80vh;
+  margin: 20px;
+  width: 60%;
+  border:2px solid #000;
 }
 
 .control-panel {
-  flex: 1;
-  border: 1px solid #000;
-  margin-right: 20px;
-  display: flex;
-  background-color: antiquewhite;
+  width: 30%;
+  height: auto;
+  margin: 20px;
+  border: 2px solid #000;
+}
+
+.slider-container {
+  padding: 3%;
+}
+
+.checkbox-container{
+  padding: 3%;
+}
+
+button {
+  padding: 6% 10%;
+  margin: 5%;
+}
+
+.slider {
+  width: 90%;
+  margin: 5%;
 }
 
 
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
 </style>
