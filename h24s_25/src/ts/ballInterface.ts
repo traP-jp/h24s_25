@@ -2,8 +2,6 @@ import { BallTypeEnum } from './balltypes';
 // ball interface
 export abstract class BallInterface {
     abstract label(): string;
-    abstract initialVelocity: { x: number, y: number };
-    abstract initialPosition: { x: number, y: number };
     abstract ballType(): BallTypeEnum;
 }
 
