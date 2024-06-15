@@ -5,6 +5,7 @@ import {BinaryPlusBall} from "@/ts/ball/function/binaryPlus";
 import {FunctionType} from "@/ts/ball/function/FunctionType";
 import {BinaryMinusBall} from "@/ts/ball/function/binaryMinusBall";
 import {BinaryMultiplyBall} from "@/ts/ball/function/binaryMultiplyBall";
+import {TernaryConditionalBall} from "@/ts/ball/function/ternaryConditional";
 import Screen from "@/ts/screen/Screen";
 import {OutputBallImpl} from "@/ts/ball/OutputBallImpl";
 import {BinaryEqualBall} from "@/ts/ball/function/binaryEqualBall";
@@ -81,6 +82,8 @@ export default class BallData {
                         return new BinaryLessThanBall(removeSelf);
                     case FunctionType.BINARY_LESS_THAN_OR_EQUAL:
                         return new BinaryLessThanOrEqualBall(removeSelf);
+                    case FunctionType.TERNARY_CONDITIONAL:
+                        return new TernaryConditionalBall(removeSelf);
                     default:
                         return new MockBallImpl()
                 }

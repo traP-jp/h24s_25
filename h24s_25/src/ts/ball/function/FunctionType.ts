@@ -9,4 +9,5 @@ export const FunctionType =  {
     BINARY_GREATER_THAN_OR_EQUAL: 7,
     BINARY_LESS_THAN: 8,
     BINARY_LESS_THAN_OR_EQUAL: 9,
+    TERNARY_CONDITIONAL: 10,
 }
