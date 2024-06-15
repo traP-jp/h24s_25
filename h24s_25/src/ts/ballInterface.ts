@@ -5,7 +5,6 @@ export interface BallInterface {
     velocity: { x: number, y: number };
     position: { x: number, y: number };
     ballType: () => BallTypeEnum;
-    id: () => number;
 }
 
 // interface for each balltype
