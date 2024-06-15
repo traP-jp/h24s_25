@@ -1,5 +1,6 @@
 import{BallTypeEnum} from './balltypes';
 import type {FunctionBallInterface} from './ballInterface';
+
 export class FunctionBall<T> implements FunctionBallInterface<T>{
       symbol: string;
       applied: number[];

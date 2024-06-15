@@ -1,17 +1,28 @@
 import Matter, {Bodies, Composite, Engine, Events, Mouse, MouseConstraint, Render, Runner} from "matter-js";
 import {ScreenMode} from "@/ts/screen/ScreenMode";
-import ScreenData from "@/ts/data/GameData";
+import ScreenData from "@/ts/data/ScreenData";
 import {BallTypeEnum} from "@/ts/balltypes";
 import BallData from "@/ts/data/BallData";
 import type {BallInterface} from "@/ts/ballInterface";
 
+/**
+ * スクリーン
+ */
 export default class Screen {
+    /**
+     * 重力が働くかどうか
+     */
     hasGravity: boolean;
     engine: Engine;
     render: Render;
     runner: Runner;
     data: ScreenData = new ScreenData();
     screenMode: ScreenMode = ScreenMode.EDIT;
+    /**
+     * 運動中のオブジェクトのマップ
+     * key: id
+     * value: {@link BallInterface}
+     */
     objects: Map<string,BallInterface> = new Map();
     constructor(hasGravity: boolean) {
         this.hasGravity = hasGravity;
@@ -35,6 +46,10 @@ export default class Screen {
             new Map()
         ));
     }
+
+    /**
+     * 初期化
+     */
     init() {
         this.edit();
         // run the renderer
@@ -86,6 +101,9 @@ export default class Screen {
         })
     }
 
+    /**
+     * 編集画面に切り替える
+     */
     edit() {
         //重力
         this.engine.gravity.y = 0;
@@ -105,6 +123,9 @@ export default class Screen {
         this.screenMode = ScreenMode.EDIT;
     }
 
+    /**
+     * 再生画面
+     */
     play() {
         //重力
         if(this.hasGravity) this.engine.gravity.y = 1;
