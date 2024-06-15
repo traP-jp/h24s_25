@@ -21,7 +21,7 @@ export interface FunctionBallInterface<T> extends BallInterface {
 }
 
 export interface HigherOrderFunctionBallInterface<T1, T2> extends BallInterface {
-    constructor: (func: (f: (x: number) => T1) => T2) => void;
+    constructor: (func: (f: (x: number) => T1) => T2, symbol: string) => void;
     func: () => (f: (x: number) => T1) => T2;
     ballType: () => BallTypeEnum.HIGHER_ORDER_FUNCTION;
 }
