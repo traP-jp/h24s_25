@@ -7,6 +7,14 @@ function edit() {
 function play() {
   game.play()
 }
+function save() {
+  game.data.save("test")
+}
+function load() {
+  game.data.load("test").then((data) => {
+    game.edit()
+  })
+}
 </script>
 
 <template>
@@ -17,6 +25,8 @@ function play() {
     <div>
       <button @click="edit()">edit</button>
       <button @click="play()">play</button>
+      <button @click="save()">testにsave</button>
+      <button @click="load()">testからload</button>
     </div>
     <div class="gamespace" id="screen">
     </div>

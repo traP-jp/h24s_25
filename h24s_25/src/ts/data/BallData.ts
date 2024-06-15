@@ -5,8 +5,8 @@ export default class BallData {
     ballType: BallTypeEnum;
     initialPosition: {x: number, y: number};
     initialVelocity: {x: number, y: number};
-    data: any;
-    constructor(ballType: BallTypeEnum, initialPosition: {x: number, y: number}, initialVelocity: {x: number, y: number}, data: any) {
+    data: Map<string, string>;
+    constructor(ballType: BallTypeEnum, initialPosition: {x: number, y: number}, initialVelocity: {x: number, y: number}, data: Map<string, string>) {
         this.ballType = ballType;
         this.initialPosition = initialPosition;
         this.initialVelocity = initialVelocity;
@@ -16,14 +16,22 @@ export default class BallData {
     createBall(): BallInterface {
         return new MockBallImpl(this.initialPosition,this.initialVelocity);
     }
+
+    static deserialize(obj: any) {
+        return new BallData(obj.ballType, obj.initialPosition, obj.initialVelocity, obj.data);
+    }
+
+    serialize(): any {
+        return JSON.parse(JSON.stringify(this));
+    }
 }
 class MockBallImpl implements BallInterface {
-    position: { x: number; y: number };
-    velocity: { x: number; y: number };
+    initialPosition: { x: number; y: number };
+    initialVelocity: { x: number; y: number };
 
     constructor(position: {x: number, y: number}, velocity: {x:number, y:number}) {
-        this.position = position;
-        this.velocity = velocity;
+        this.initialPosition = position;
+        this.initialVelocity = velocity;
     }
     ballType(): BallTypeEnum {
         return BallTypeEnum.NUMBER
