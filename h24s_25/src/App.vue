@@ -22,9 +22,18 @@ function load() {
     <div class="title left">
       <h1>welcome</h1>
     </div>
-    <div class="gamespace" id="screen">
+    <div class="gamespace left">       <!-- class="gamespace left" とすればコントロールパネルがいい感じの位置に動くよ。-->
+      <div id="screen">
+      </div>
     </div>
     <div class="control-panel left">
+      <div class="log-container">
+        <p class="log-titile">Log id:value</p>
+        <div class="log-box">
+          <p>あるあるですわな</p>
+          <p>かきくけこ</p>
+        </div>
+      </div>
       <div class="slider-container">
         <p>スライダ1</p>
         <input class="slider" type="range" id="slider1" min="0" max="100" step="5">
@@ -81,8 +90,18 @@ h1 {
 
 .control-panel {
   width: 30%;
-  height: auto;
+  height: 80vh;
   margin: 20px;
+  border: 2px solid #000;
+}
+
+.log-box {
+  padding: 3%;
+  overflow: visible;
+  overflow: scroll;
+  margin: 2%;
+  width: auto;
+  height: 10vh;
   border: 2px solid #000;
 }
 
@@ -95,7 +114,8 @@ h1 {
 }
 
 button {
-  padding: 6% 10%;
+  width: 30%;
+  padding: 6% 0%;
   margin: 5%;
 }
 
