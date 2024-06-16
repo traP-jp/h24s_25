@@ -37,18 +37,20 @@ function generateBall() {
 <template>
   <div class="container">
     <div class="title left">
-      <h1>welcome</h1>
+      <h1>Welcome</h1>
     </div>
-    <div class="gamespace left">       <!-- class="gamespace left" とすればコントロールパネルがいい感じの位置に動くよ。-->
-      <div id="screen">
+    <div class="gamespace left">
+      <div class="">
+      <div class="screen" id="screen">
+      </div>
       </div>
     </div>
-    <div class="control-panel left">
-      <div class="play-edit-container">
+    <div class="control-panel">
+      <div class="play-edit-container" style="display: flex; justify-content: space-around;">
         <button id="play-button" @click="play()">Play</button>
         <button id="edit-button" @click="edit()">Edit</button>
       </div>
-      <div class="save-load-container">
+      <div class="save-load-container" style="display: flex; justify-content: space-around;">
         <button id="save-button" @click="save()">Save</button>
         <button id="load-button" @click="load()">Load</button>
       </div>
@@ -68,10 +70,12 @@ function generateBall() {
         <button @click="generateBall()">玉を追加</button>
       </div>
       <div class="log-container">
-        <p class="log-titile">Log id:value</p>
+        <p style="position: relative; left: 20px;">Log id:value</p>
         <div class="log-box">
-          <p>あるあるですわな</p>
-          <p>かきくけこ</p>
+          <p>id1 : value1</p>
+          <p>id2 : value2</p>
+          <p>id3 : value3</p>
+          <p>id4 : value4</p>
         </div>
       </div>
       <div>
@@ -117,17 +121,42 @@ h1 {
 }
 
 .gamespace {
-  height: 80vh;
+  height: 600px;
   margin: 20px;
-  width: 60%;
-  border:2px solid #000;
+  width: 800px;
+  overflow: scroll;
+  border:2px solid red;
+}
+
+.scroll-listener {
+  height: 10000px;
+  width: 10000px;
+}
+
+.screen {
+  position: relative;
 }
 
 .control-panel {
-  width: 30%;
   height: 80vh;
   margin: 20px;
   border: 2px solid #000;
+}
+
+@media screen and (min-width: 1201px) {
+  .control-panel {
+    position: absolute;
+    right: 20px;
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .control-panel{
+    float: left;
+    width: 800px;
+    height: auto;
+  }
 }
 
 .log-box {
