@@ -12,7 +12,7 @@ export abstract class BallInterface {
     /**
      * BallTypeEnumを返す
      */
-    abstract ballType(): BallTypeEnum;
+    abstract ballType(): number;
 }
 
 // interface for each balltype
@@ -44,7 +44,7 @@ export abstract class FunctionBallInterface<S extends BallInterface|null, O exte
     /**
      * BallTypeEnumを返す
      */
-    override ballType(): BallTypeEnum {
+    override ballType(): number {
         return BallTypeEnum.FUNCTION;
     }
 }

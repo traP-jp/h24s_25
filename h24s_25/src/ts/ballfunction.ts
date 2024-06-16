@@ -15,7 +15,7 @@ export class FunctionBall<S extends BallInterface|null, O extends BallInterface|
       override func(x: NumberBallInterface): { self: S, other: O } {
             return this.funcVal(x);
       }
-      ballType(): BallTypeEnum {
+      ballType(): number {
             return BallTypeEnum.FUNCTION
       }
       label(): string{
