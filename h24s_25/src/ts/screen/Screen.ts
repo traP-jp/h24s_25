@@ -11,7 +11,6 @@ import {
     OutputBallInterface
 } from "@/ts/ballInterface";
 import {provide, ref} from "vue";
-import {DuplicateBall} from "@/ts/ball/function/duplicateBall";
 
 /**
  * スクリーン
