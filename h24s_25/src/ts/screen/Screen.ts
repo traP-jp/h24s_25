@@ -1,4 +1,4 @@
-import Matter, {Bodies, Composite, Engine, Events, Mouse, MouseConstraint, Render, Runner} from "matter-js";
+import Matter, {Body, Bodies, Composite, Engine, Events, Mouse, MouseConstraint, Render, Runner} from "matter-js";
 import {ScreenMode} from "@/ts/screen/ScreenMode";
 import ScreenData from "@/ts/data/ScreenData";
 import {BallTypeEnum} from "@/ts/balltypes";
@@ -156,7 +156,7 @@ export default class Screen {
         Composite.remove(this.engine.world, this.engine.world.bodies);
         const ground = Matter.Bodies.rectangle(400, 610, 810, 10, {isStatic: true});
         Composite.add(this.engine.world, ground);
-        for(const entry of this.data.balls.entries()) {
+        for(const entry of Array.from(this.data.balls.entries())) {
             const id = entry[0];
             const ballData = entry[1];
             const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
@@ -180,16 +180,17 @@ export default class Screen {
         Composite.remove(this.engine.world, this.engine.world.bodies);
         const ground = Matter.Bodies.rectangle(400, 610, 810, 10, {isStatic: true});
         Composite.add(this.engine.world, ground);
-        for(const entry of this.data.balls.entries()) {
+        for(const entry of Array.from(this.data.balls.entries())) {
             const id = entry[0];
             const ballData = entry[1];
             const ball = ballData.createBall()
             this.objects.set(id,ball);
 
             const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
-                positionPrev: {x: ballData.initialPosition.x-ballData.initialVelocity.x, y: ballData.initialPosition.y-ballData.initialVelocity.y},
                 restitution: 1.0
             });
+            Body.setVelocity(body, ballData.initialVelocity)
+            Body.setPosition(body, ballData.initialPosition)
             body.label = id;
             Composite.add(this.engine.world, body);
         }
