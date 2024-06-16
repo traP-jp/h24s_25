@@ -18,6 +18,7 @@ export default class ScreenData {
      * @param key キー
      */
     save(key: string): Promise<void> {
+        console.log(this.balls)
         const data: any = {};
         for(const entry of this.balls.entries()) {
             data[entry[0]] = entry[1].serialize();

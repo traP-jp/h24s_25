@@ -23,7 +23,7 @@ export default class BallData {
     /**
      * 玉の種類
      */
-    ballType: BallTypeEnum;
+    ballType: number;
     /**
      * 初期位置
      */
@@ -36,7 +36,7 @@ export default class BallData {
      * その他の情報
      */
     data: Map<string, string>;
-    constructor(ballType: BallTypeEnum, initialPosition: {x: number, y: number}, initialVelocity: {x: number, y: number}, data: Map<string, string>) {
+    constructor(ballType: number, initialPosition: {x: number, y: number}, initialVelocity: {x: number, y: number}, data: Map<string, string>) {
         this.ballType = ballType;
         this.initialPosition = initialPosition;
         this.initialVelocity = initialVelocity;
@@ -47,14 +47,15 @@ export default class BallData {
      * {@link BallInterface}のインスタンスを生成
      */
     createBall(): BallInterface {
+        console.log(this)
         switch (this.ballType) {
             case BallTypeEnum.OUTPUT: {
                 const outputIndex = this.data.has("index") ? Number(this.data.get("index")) : 0;
                 return new OutputBallImpl(outputIndex);
             }
             case BallTypeEnum.INPUT: {
-                const input = this.data.has("index") ? Screen.getInstance().input[Number(this.data.get("input"))] : 0;
-                return new NumberBall(input)
+                const input = this.data.has("input") ? Screen.getInstance().input[Number(this.data.get("input"))] : 0;
+                return new NumberBall(input);
             }
             case BallTypeEnum.NUMBER: {
                 return new NumberBall(this.data.has("value") ? Number(this.data.get("value")) : 0)
@@ -62,6 +63,8 @@ export default class BallData {
             case BallTypeEnum.FUNCTION: {
                 const functionType = this.data.has("functionType") ? Number(this.data.get("functionType")) : FunctionType.BINARY_PLUS;
                 const removeSelf = this.data.has("removeSelf") ? Boolean(this.data.get("removeSelf")) : false
+                console.log(`functionType:${functionType}`)
+
                 switch (functionType) {
                     case FunctionType.BINARY_MINUS:
                         return new BinaryMinusBall(removeSelf);
@@ -101,14 +104,19 @@ export default class BallData {
      * @param obj object
      */
     static deserialize(obj: any) {
-        return new BallData(obj.ballType, obj.initialPosition, obj.initialVelocity, obj.data);
+        return new BallData(obj.ballType, obj.initialPosition, obj.initialVelocity, new Map(Object.entries(obj.data)));
     }
 
     /**
      * プレインオブジェクトに尻arise
      */
     serialize(): any {
-        return JSON.parse(JSON.stringify(this));
+        return {
+            ballType: this.ballType,
+            initialPosition: this.initialPosition,
+            initialVelocity: this.initialVelocity,
+            data: Object.fromEntries(this.data)
+        };
     }
 }
 
@@ -119,7 +127,7 @@ class MockBallImpl implements BallInterface {
     constructor() {
     }
 
-    ballType(): BallTypeEnum {
+    ballType(): number {
         return BallTypeEnum.NUMBER
     }
 

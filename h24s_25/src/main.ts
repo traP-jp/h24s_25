@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import {createApp, inject, ref} from 'vue'
 import App from './App.vue'
 import Screen from "@/ts/screen/Screen";
 
@@ -9,9 +9,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 
-
-createApp(App).mount('#app')
-
+inject("selectedBall", ref(""))
+export const vueApp = createApp(App).mount('#app')
 //firebaseの初期化
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,8 +23,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app)
+export const firebaseApp = initializeApp(firebaseConfig);
+export const db = getFirestore(firebaseApp)
+
 
 //画面の初期化
 export const game = Screen.getInstance(false)

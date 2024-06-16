@@ -10,6 +10,7 @@ import {
     NumberBallInterface,
     OutputBallInterface
 } from "@/ts/ballInterface";
+import {provide, ref} from "vue";
 
 /**
  * スクリーン
@@ -34,10 +35,10 @@ export default class Screen {
      * 入力
      */
     input: number[] = []
-
+    selectedBall = ref("")
     static instance: Screen;
     static getInstance(hasGravity: boolean = true) {
-        if(this.instance === undefined) {
+        if(this.instance === undefined || this.instance === null) {
             this.instance = new Screen(hasGravity);
         }
         return this.instance
@@ -45,6 +46,13 @@ export default class Screen {
 
     private constructor(hasGravity: boolean) {
         this.hasGravity = hasGravity;
+    }
+
+    /**
+     * 初期化
+     */
+    init() {
+
         // create an engine
         this.engine = Engine.create();
 
@@ -76,12 +84,7 @@ export default class Screen {
             {x: 0, y: 0},
             new Map()
         ));
-    }
-
-    /**
-     * 初期化
-     */
-    init() {
+        console.log("initializing screen")
         this.edit();
         // run the renderer
         Render.run(this.render);
@@ -115,7 +118,12 @@ export default class Screen {
                     const id = body.label
                     const ball = this.objects.get(id)
                     if(ball === undefined) continue;
-                    context.fillText(ball.label(), body.position.x, body.position.y)
+                    let text = ball!.label()
+                    if(this.screenMode == ScreenMode.EDIT) {
+                        text += "\n"
+                        text += id
+                    }
+                    context.fillText(text, body.position.x, body.position.y);
                 }
                 context.lineWidth = 1.5
                 context.strokeStyle = '#ffffff'
@@ -134,12 +142,18 @@ export default class Screen {
             //画面初期化
             this.edit()
         })
+        Events.on(mouseConstraint, "mousedown", (event) => {
+            const body = event.source.body
+            if(body === undefined) return;
+            provide("selectedBall", ref(body.label))
+        })
         Events.on(this.engine, "collisionStart", (event) => {
             for(const pair of event.pairs) {
                 if(pair.bodyA.label === undefined || pair.bodyB.label === undefined) continue;
                 this.collide(pair.bodyA.label, pair.bodyB.label)
             }
         })
+        console.log("complete")
     }
 
     /**
@@ -159,6 +173,8 @@ export default class Screen {
         for(const entry of Array.from(this.data.balls.entries())) {
             const id = entry[0];
             const ballData = entry[1];
+            const ball = ballData.createBall()
+            this.objects.set(id,ball);
             const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
                 restitution: 1.0
             });
