@@ -55,7 +55,7 @@
     数値: <input type="number" v-model="value" @change="ballData.data.set('value',value);Screen.getInstance().edit()">
   </div>
 </div>
-  <div v-if="ballData === undefined">あ</div>
+  <div v-if="ballData === undefined"></div>
 </template>
 
 <style scoped>

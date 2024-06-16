@@ -38,7 +38,7 @@ function generateBall() {
 <template>
   <div class="container">
     <div class="title left">
-      <h1>Welcome</h1>
+      <h1>円算機</h1>
     </div>
     <div class="gamespace left">
       <div class="">
@@ -56,11 +56,11 @@ function generateBall() {
         <button id="load-button" @click="load()">Load</button>
       </div>
       <div>
-        savedata:
+        <span style="margin: 20px;">savedata:</span>
         <input type="text" v-model="savedata" placeholder="セーブデータ名">
       </div>
-      <div>
-        <input type="text" v-model="ballId" placeholder="玉のidを入力してください">
+      <div style="margin: 20px">
+        <input style="width: 12.5em;" type="text" v-model="ballId" placeholder="玉のidを入力してください">
         <select name="ballType" id="ballTypeSelector" v-model="ballType">
           <option value="0">出力</option>
 <!--          <option value="1">入力</option>-->
@@ -70,16 +70,7 @@ function generateBall() {
         </select>
         <button @click="generateBall()">玉を追加</button>
       </div>
-      <div class="log-container">
-        <p style="position: relative; left: 20px;">Log id:value</p>
-        <div class="log-box">
-          <p>id1 : value1</p>
-          <p>id2 : value2</p>
-          <p>id3 : value3</p>
-          <p>id4 : value4</p>
-        </div>
-      </div>
-      <div>
+      <div style="margin: 20px;">
         <BallConfig></BallConfig>
       </div>
 <!--      <div class="slider-container">-->
