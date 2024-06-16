@@ -7,6 +7,7 @@
   const functionType = ref("0")
   const value = ref("")
   const removeSelf = ref(false)
+  const mass = ref(false)
 </script>
 
 <template>
@@ -23,6 +24,9 @@
   <div>
     初速度:(<input type="number" v-model="ballData.initialVelocity.x" @change="Screen.getInstance().edit()">,<input type="number" v-model="ballData.initialVelocity.y" @change="Screen.getInstance().edit()">)
   </div>
+  <div>
+    静的: <input type="checkbox" v-model="ballData.isStatic">
+  </div>
   <div v-if="ballData.ballType == BallTypeEnum.FUNCTION">
     関数の種類:
     <select name="function" id="functiontype" v-model="functionType" @change="console.log(functionType);ballData.data.set('functionType', functionType);Screen.getInstance().edit()">
@@ -37,6 +41,10 @@
       <option value="8">&lt;</option>
       <option value="9">&lt;=</option>
       <option value="10">?:</option>
+      <option value="11">%</option>
+      <option value="12">delete if true</option>
+      <option value="13">delete if false</option>
+      <option value="14">duplicate</option>
     </select>
   </div>
   <div v-if="ballData.ballType == BallTypeEnum.FUNCTION">

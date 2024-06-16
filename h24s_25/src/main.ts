@@ -9,6 +9,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 
+export const game = Screen.getInstance(false)
+
 inject("selectedBall", ref(""))
 export const vueApp = createApp(App).mount('#app')
 //firebaseの初期化
@@ -28,5 +30,4 @@ export const db = getFirestore(firebaseApp)
 
 
 //画面の初期化
-export const game = Screen.getInstance(false)
 game.init();

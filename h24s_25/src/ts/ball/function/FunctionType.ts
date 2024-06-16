@@ -10,4 +10,8 @@ export const FunctionType =  {
     BINARY_LESS_THAN: 8,
     BINARY_LESS_THAN_OR_EQUAL: 9,
     TERNARY_CONDITIONAL: 10,
+    BINARY_MOD: 11,
+    DELETE_IF_TRUE: 12,
+    DELETE_IF_FALSE: 13,
+    DUPLICATE: 14
 }

@@ -4,7 +4,7 @@ export const BallTypeEnum = {
     INPUT: 1,
     NUMBER: 2,
     FUNCTION: 3,
-    HIGHER_ORDER_FUNCTION: 4,
+    HIGHER_ORDER_FUNCTION: 4
 }
 
 export function getBallTypeDisplayName(type: number) {

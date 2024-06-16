@@ -8,6 +8,7 @@ const game = Screen.getInstance()
 let savedata: string = "init"
 let ballType = ref("0")
 let ballId: string = ""
+const input = ref("")
 function edit() {
   game.edit();
 }
@@ -62,7 +63,7 @@ function generateBall() {
         <input type="text" v-model="ballId" placeholder="玉のidを入力してください">
         <select name="ballType" id="ballTypeSelector" v-model="ballType">
           <option value="0">出力</option>
-          <option value="1">入力</option>
+<!--          <option value="1">入力</option>-->
           <option value="2">数</option>
           <option value="3">関数</option>
           <option value="4">高階関数</option>
@@ -81,20 +82,20 @@ function generateBall() {
       <div>
         <BallConfig></BallConfig>
       </div>
-      <div class="slider-container">
-        <p>スライダ1</p>
-        <input class="slider" type="range" id="slider1" min="0" max="100" step="5">
-      </div>
-      <div class="slider-container">
-        <p>スライダ2</p>
-        <input class="slider" type="range" id="slider2" min="0" max="100" step="5">
-      </div>
-      <div class="checkbox-container">
-        <input class="ckeckbox" type="checkbox" id="checkbox1" /> <label for="checkbox1">チェックボックス1</label>
-      </div>
-      <div class="checkbox-container">
-        <input class="ckeckbox" type="checkbox" id="checkbox2" /> <label for="checkbox2">チェックボックス2</label>
-      </div>
+<!--      <div class="slider-container">-->
+<!--        <p>スライダ1</p>-->
+<!--        <input class="slider" type="range" id="slider1" min="0" max="100" step="5">-->
+<!--      </div>-->
+<!--      <div class="slider-container">-->
+<!--        <p>スライダ2</p>-->
+<!--        <input class="slider" type="range" id="slider2" min="0" max="100" step="5">-->
+<!--      </div>-->
+<!--      <div class="checkbox-container">-->
+<!--        <input class="ckeckbox" type="checkbox" id="checkbox1" /> <label for="checkbox1">チェックボックス1</label>-->
+<!--      </div>-->
+<!--      <div class="checkbox-container">-->
+<!--        <input class="ckeckbox" type="checkbox" id="checkbox2" /> <label for="checkbox2">チェックボックス2</label>-->
+<!--      </div>-->
     </div>
   </div>
 </template>

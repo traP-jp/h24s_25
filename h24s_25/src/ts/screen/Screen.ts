@@ -11,6 +11,7 @@ import {
     OutputBallInterface
 } from "@/ts/ballInterface";
 import {provide, ref} from "vue";
+import {DuplicateBall} from "@/ts/ball/function/duplicateBall";
 
 /**
  * スクリーン
@@ -36,6 +37,7 @@ export default class Screen {
      */
     input: number[] = []
     selectedBall = ref("")
+    output: Map<number, number> = new Map()
     static instance: Screen;
     static getInstance(hasGravity: boolean = true) {
         if(this.instance === undefined || this.instance === null) {
@@ -128,6 +130,31 @@ export default class Screen {
                 context.lineWidth = 1.5
                 context.strokeStyle = '#ffffff'
                 context.stroke()
+
+                if(this.screenMode == ScreenMode.PLAY) {
+                    let outputExits = false
+                    this.objects.forEach((value, key) => {
+                        if(value instanceof OutputBallInterface) {
+                            outputExits = true
+                        }
+                    })
+                    if(!outputExits) {
+                        let dataOutputExits = false
+                        this.data.balls.forEach((value, key) => {
+                            if(value.ballType === BallTypeEnum.OUTPUT) {
+                                dataOutputExits = true
+                            }
+                        })
+                        if(dataOutputExits) {
+                            let message = ""
+                            this.output.forEach((value, key) => {
+                                message += `${key}:${value}\n`
+                            })
+                            alert(message)
+                            this.edit()
+                        }
+                    }
+                }
             }
         )
         Events.on(mouseConstraint, "mousemove", (event) =>{
@@ -203,7 +230,9 @@ export default class Screen {
             this.objects.set(id,ball);
 
             const body = Bodies.circle(ballData.initialPosition.x, ballData.initialPosition.y, 30, {
-                restitution: 1.0
+                restitution: 1.0,
+                isStatic: ballData.isStatic,
+                frictionAir: 0
             });
             Body.setVelocity(body, ballData.initialVelocity)
             Body.setPosition(body, ballData.initialPosition)
@@ -233,7 +262,9 @@ export default class Screen {
                 this.setBall(idA, pair.other);
                 this.setBall(idB, pair.self);
             } else if(ballB instanceof OutputBallInterface) {
-                //TODO output
+                this.outputNumber(ballB.outputIndex, ballA.value())
+                this.setBall(idA, null)
+                this.setBall(idB, null)
             }
         } else if(ballA instanceof FunctionBallInterface) {
             if(ballB instanceof NumberBallInterface) {
@@ -253,8 +284,15 @@ export default class Screen {
             }
         } else if(ballA instanceof OutputBallInterface) {
             if(ballB instanceof NumberBallInterface) {
-                //TODO output
+                this.outputNumber(ballA.outputIndex, ballB.value())
+                this.setBall(idA, null)
+                this.setBall(idB, null)
             }
         }
+
+    }
+
+    outputNumber(index: number,num: number) {
+        this.output.set(index, num)
     }
 }

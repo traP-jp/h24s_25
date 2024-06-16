@@ -15,6 +15,10 @@ import {BinaryGreaterThanOrEqualBall} from "@/ts/ball/function/binaryGreaterThan
 import {BinaryLessThanBall} from "@/ts/ball/function/binaryLessThanBall";
 import {BinaryLessThanOrEqualBall} from "@/ts/ball/function/binaryLessThanOrequalBall";
 import { SpawnFunctionBall } from "../ball/higherOrderFunction/spawnFunctionBall";
+import {BinaryModBall} from "@/ts/ball/function/binaryModBall";
+import {DeleteIfTrueBall} from "@/ts/ball/function/deleteIfTrueBall";
+import {DeleteIfFalseBall} from "@/ts/ball/function/deleteIfFalseBall";
+import {DuplicateBall} from "@/ts/ball/function/duplicateBall";
 
 /**
  * 玉の情報のみを表すクラス
@@ -36,11 +40,15 @@ export default class BallData {
      * その他の情報
      */
     data: Map<string, string>;
-    constructor(ballType: number, initialPosition: {x: number, y: number}, initialVelocity: {x: number, y: number}, data: Map<string, string>) {
+
+    isStatic: boolean = false;
+
+    constructor(ballType: number, initialPosition: {x: number, y: number}, initialVelocity: {x: number, y: number}, data: Map<string, string>, isStatic = false) {
         this.ballType = ballType;
         this.initialPosition = initialPosition;
         this.initialVelocity = initialVelocity;
         this.data = data;
+        this.isStatic = isStatic;
     }
 
     /**
@@ -88,6 +96,14 @@ export default class BallData {
                         return new BinaryLessThanOrEqualBall(removeSelf);
                     case FunctionType.TERNARY_CONDITIONAL:
                         return new TernaryConditionalBall(removeSelf);
+                    case FunctionType.BINARY_MOD:
+                        return new BinaryModBall(removeSelf);
+                    case FunctionType.DELETE_IF_TRUE:
+                        return new DeleteIfTrueBall(removeSelf);
+                    case FunctionType.DELETE_IF_FALSE:
+                        return new DeleteIfFalseBall(removeSelf);
+                    case FunctionType.DUPLICATE:
+                        return new DuplicateBall();
                     default:
                         return new MockBallImpl()
                 }
