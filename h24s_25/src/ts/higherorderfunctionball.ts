@@ -20,7 +20,7 @@ export class HigherOrderFunctionBall<
       override func(f: FunctionBallInterface<S1, O1>): { self: S2, other: O2 } {
             return this.funcVal(f);
       }
-      ballType(): BallTypeEnum {
+      ballType(): number {
             return BallTypeEnum.HIGHER_ORDER_FUNCTION;
       }
 

@@ -24,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: 'h24s_25/package-lock.json'
     - run: cd ./h24s_25 && npm ci
     - run: cd ./h24s_25 && npm run build
     

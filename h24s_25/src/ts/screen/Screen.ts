@@ -20,9 +20,9 @@ export default class Screen {
      * 重力が働くかどうか
      */
     hasGravity: boolean;
-    engine: Engine;
-    render: Render;
-    runner: Runner;
+    engine: Engine = Engine.create();
+    render: Render = Render.create({engine: this.engine});
+    runner: Runner = Runner.create();
     data: ScreenData = new ScreenData();
     screenMode: ScreenMode = ScreenMode.EDIT;
     /**
