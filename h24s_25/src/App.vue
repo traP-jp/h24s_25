@@ -68,13 +68,6 @@ function generateBall() {
         </select>
         <button @click="generateBall()">玉を追加</button>
       </div>
-      <div class="log-container">
-        <p class="log-titile">Log id:value</p>
-        <div class="log-box">
-          <p>あるあるですわな</p>
-          <p>かきくけこ</p>
-        </div>
-      </div>
       <div>
         <BallConfig></BallConfig>
       </div>
