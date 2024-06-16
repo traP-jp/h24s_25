@@ -11,6 +11,7 @@ import {
     OutputBallInterface
 } from "@/ts/ballInterface";
 import {provide, ref} from "vue";
+import {DuplicateBall} from "@/ts/ball/function/duplicateBall";
 
 /**
  * スクリーン
@@ -288,6 +289,7 @@ export default class Screen {
                 this.setBall(idB, null)
             }
         }
+
     }
 
     outputNumber(index: number,num: number) {

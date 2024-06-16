@@ -16,6 +16,9 @@ import {BinaryLessThanBall} from "@/ts/ball/function/binaryLessThanBall";
 import {BinaryLessThanOrEqualBall} from "@/ts/ball/function/binaryLessThanOrequalBall";
 import { SpawnFunctionBall } from "../ball/higherOrderFunction/spawnFunctionBall";
 import {BinaryModBall} from "@/ts/ball/function/binaryModBall";
+import {DeleteIfTrueBall} from "@/ts/ball/function/deleteIfTrueBall";
+import {DeleteIfFalseBall} from "@/ts/ball/function/deleteIfFalseBall";
+import {DuplicateBall} from "@/ts/ball/function/duplicateBall";
 
 /**
  * 玉の情報のみを表すクラス
@@ -95,6 +98,12 @@ export default class BallData {
                         return new TernaryConditionalBall(removeSelf);
                     case FunctionType.BINARY_MOD:
                         return new BinaryModBall(removeSelf);
+                    case FunctionType.DELETE_IF_TRUE:
+                        return new DeleteIfTrueBall(removeSelf);
+                    case FunctionType.DELETE_IF_FALSE:
+                        return new DeleteIfFalseBall(removeSelf);
+                    case FunctionType.DUPLICATE:
+                        return new DuplicateBall();
                     default:
                         return new MockBallImpl()
                 }

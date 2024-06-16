@@ -42,6 +42,9 @@
       <option value="9">&lt;=</option>
       <option value="10">?:</option>
       <option value="11">%</option>
+      <option value="12">delete if true</option>
+      <option value="13">delete if false</option>
+      <option value="14">duplicate</option>
     </select>
   </div>
   <div v-if="ballData.ballType == BallTypeEnum.FUNCTION">
