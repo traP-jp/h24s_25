@@ -20,10 +20,12 @@ function load() {
 <template>
   <div class="container">
     <div class="title left">
-      <h1>welcome</h1>
+      <h1>Welcome</h1>
     </div>
     <div class="gamespace left">
-      <div id="screen">
+      <div class="">
+      <div class="screen" id="screen">
+      </div>
       </div>
     </div>
     <div class="control-panel left">
@@ -38,8 +40,10 @@ function load() {
       <div class="log-container">
         <p class="log-titile">Log id:value</p>
         <div class="log-box">
-          <p>あるあるですわな</p>
-          <p>かきくけこ</p>
+          <p>id1 : value1</p>
+          <p>id2 : value2</p>
+          <p>id3 : value3</p>
+          <p>id4 : value4</p>
         </div>
       </div>
       <div class="slider-container">
@@ -85,13 +89,18 @@ h1 {
   height: 80vh;
   margin: 20px;
   width: 60%;
-  overflow: hidden;
   overflow: scroll;
   border:2px solid #000;
 }
 
-.matter-canvas {
-  
+.scroll-listener {
+  height: 10000px;
+  width: 10000px;
+}
+
+.screen {
+  position: relative;
+  top: 400px;
 }
 
 .control-panel {
