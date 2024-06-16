@@ -1,5 +1,5 @@
 import{BallTypeEnum} from './balltypes';
-import {BallInterface, HigherOrderFunctionBallInterface, NumberBallInterface, FunctionBallInterface} from './ballInterface';
+import {BallInterface, HigherOrderFunctionBallInterface, FunctionBallInterface} from './ballInterface';
 
 export class HigherOrderFunctionBall<
     S1 extends BallInterface|null, 
