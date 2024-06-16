@@ -22,7 +22,7 @@ function load() {
     <div class="title left">
       <h1>welcome</h1>
     </div>
-    <div class="gamespace left">       <!-- class="gamespace left" とすればコントロールパネルがいい感じの位置に動くよ。-->
+    <div class="gamespace left">
       <div id="screen">
       </div>
     </div>
@@ -85,7 +85,13 @@ h1 {
   height: 80vh;
   margin: 20px;
   width: 60%;
+  overflow: hidden;
+  overflow: scroll;
   border:2px solid #000;
+}
+
+.matter-canvas {
+  
 }
 
 .control-panel {
