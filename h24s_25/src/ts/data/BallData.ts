@@ -14,6 +14,7 @@ import {BinaryGreaterThanBall} from "@/ts/ball/function/binaryGreaterThanBall";
 import {BinaryGreaterThanOrEqualBall} from "@/ts/ball/function/binaryGreaterThanOrEqualBall";
 import {BinaryLessThanBall} from "@/ts/ball/function/binaryLessThanBall";
 import {BinaryLessThanOrEqualBall} from "@/ts/ball/function/binaryLessThanOrequalBall";
+import { SpawnFunctionBall } from "../ball/higherOrderFunction/spawnFunctionBall";
 
 /**
  * 玉の情報のみを表すクラス
@@ -89,7 +90,7 @@ export default class BallData {
                 }
             }
             case BallTypeEnum.HIGHER_ORDER_FUNCTION:
-                return new MockBallImpl();
+                return new SpawnFunctionBall()
             default:
                 return new MockBallImpl();
         }
