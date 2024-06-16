@@ -11,14 +11,14 @@ export class SpawnFunctionBall<
     FunctionBallInterface<S, O>,
     FunctionBallInterface<S, O>
 > {
-    constructor(symbol: string) {
+    constructor() {
         super(
             function (f: FunctionBallInterface<S, O>) {
                 return {
                     self: f,
                     other: f
                 }
-            }, symbol, []
+            }, "D", []
         )
     }
 }
