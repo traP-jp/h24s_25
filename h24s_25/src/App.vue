@@ -28,17 +28,17 @@ function load() {
       </div>
       </div>
     </div>
-    <div class="control-panel left">
-      <div class="play-edit-container">
+    <div class="control-panel">
+      <div class="play-edit-container" style="display: flex; justify-content: space-around;">
         <button id="play-button" @click="play()">Play</button>
         <button id="edit-button" @click="edit()">Edit</button>
       </div>
-      <div class="save-load-container">
+      <div class="save-load-container" style="display: flex; justify-content: space-around;">
         <button id="save-button" @click="save()">Save</button>
         <button id="load-button" @click="load()">Load</button>
       </div>
       <div class="log-container">
-        <p class="log-titile">Log id:value</p>
+        <p style="position: relative; left: 20px;">Log id:value</p>
         <div class="log-box">
           <p>id1 : value1</p>
           <p>id2 : value2</p>
@@ -86,11 +86,11 @@ h1 {
 }
 
 .gamespace {
-  height: 80vh;
+  height: 600px;
   margin: 20px;
-  width: 60%;
+  width: 800px;
   overflow: scroll;
-  border:2px solid #000;
+  border:2px solid red;
 }
 
 .scroll-listener {
@@ -100,14 +100,28 @@ h1 {
 
 .screen {
   position: relative;
-  top: 400px;
 }
 
 .control-panel {
-  width: 30%;
   height: 80vh;
   margin: 20px;
   border: 2px solid #000;
+}
+
+@media screen and (min-width: 1201px) {
+  .control-panel {
+    position: absolute;
+    right: 20px;
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .control-panel{
+    float: left;
+    width: 800px;
+    height: auto;
+  }
 }
 
 .log-box {
